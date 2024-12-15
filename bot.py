@@ -86,3 +86,82 @@ accept = bot.find_element(By.XPATH, '/html/body/div[9]/div[2]/div[2]/div[2]/butt
 accept.click()
 time.sleep(2)
 
+# Add rooms
+select_button = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[3]/div/div/div/div')
+select_button.click()
+time.sleep(1)
+
+# Add a second room and set the number of adults
+second_room = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[1]/button[1]')
+second_room.click()
+time.sleep(1)
+
+add_persons = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div/span[2]/button')
+actions = ActionChains(bot)
+actions.double_click(add_persons).perform() 
+time.sleep(1)
+
+send_rooms = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[4]/div[2]/div[2]/button')
+send_rooms.click()
+time.sleep(2)
+
+
+# Search results for the query
+search = bot.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/article/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div/div/div[4]/a')
+search.click()
+time.sleep(20)
+
+
+# Go to the new tab
+handles = bot.window_handles
+bot.switch_to.window(handles[-1])
+
+
+# Search for all packages
+results_container = WebDriverWait(bot, 10).until(EXP_COND.presence_of_element_located((By.ID, 'divAirResults')))
+cards = results_container.find_elements(By.XPATH, './div[contains(@class, "row column")]')
+
+# Loop to display package prices in the console
+for i, tarjeta in enumerate(cards, 1):
+    try:
+        travel_prices = tarjeta.find_elements(By.XPATH, './/span[contains(@class, "currencyText")]')
+
+        if len(travel_prices) > 1:
+            print(f"Price {i}: {travel_prices[1].text}")
+        else:
+            print(f"Price {i}: No second price in this option.")
+
+    except Exception as e:
+        print(f"Error in card {i}: {e}")
+
+
+# Go to advanced search
+advanced_search = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[6]/a')
+advanced_search.click()
+time.sleep(1)
+
+
+# Enter the airline name, selected airline: Avianca
+text = "Avianca"
+airline_input = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input')
+bot.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", airline_input)   # Scroll down the page
+airline_input.send_keys(text)
+airline_input.send_keys(Keys.ENTER)
+time.sleep(1)
+
+
+# Search by airline
+search = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[8]/input')
+search.click()
+time.sleep(10)
+
+
+# Go to "Contact Us" and access the WhatsApp number
+bot.execute_script("window.scrollTo(0, document.body.scrollHeight);")     # Scroll to the bottom of the page
+time.sleep(5)
+whatsApp_button = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[5]/footer/div[2]/div/div/div[1]/div/p[1]/a')
+whatsApp_button.click()
+time.sleep(5)
+
+
+bot.close() # Close the bot
