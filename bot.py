@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EXP_COND
 import time
 
-
+# Browser used: Chroome
 # Configuration and initialization of the bot
 service = Service("driver/chromedriver.exe")
 bot = webdriver.Chrome(service=service)
@@ -142,9 +142,10 @@ time.sleep(1)
 
 
 # Enter the airline name, selected airline: Avianca
-text = "Avianca"
+text = "avianca (AV)"
 airline_input = bot.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input')
 bot.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", airline_input)   # Scroll down the page
+time.sleep(3)
 airline_input.send_keys(text)
 airline_input.send_keys(Keys.ENTER)
 time.sleep(1)
