@@ -42,13 +42,15 @@ This project is an automated web bot developed using Selenium in Python. The bot
    pip install selenium
 
 ---
+## Video Bot
 
-## Creado por Juan Camilo Alzate
-[GitHub Juan Camilo Alzate](https://github.com/11JuanK11)
+- [Link to the execution bot](https://drive.google.com/drive/folders/1hyZOrDNx0qbwhnEJq94q4iC8UoHoUgnA?usp=sharing)
 
 ---
 
-## Creado por Sara Carolina Sánchez
-[GitHub Sara Carolina Sánchez](https://github.com/Caro-26S)
+## Create by 
+- [Juan Camilo Alzate](https://github.com/11JuanK11)
+
+- [Sara Carolina Sánchez](https://github.com/Caro-26S)
 
 ---
